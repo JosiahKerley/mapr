@@ -19,6 +19,9 @@ define appendLineToFile($file, $line, $user) {
   }
 }
 
+
+## All Nodes
+
 node default {
   ## Standard Packages
   package {['iftop','htop','elinks','stress','nmap','ssh','git','openjdk-7-jdk','python','python-pycurl','sshpass']:
