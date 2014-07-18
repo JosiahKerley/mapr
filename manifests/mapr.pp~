@@ -28,7 +28,7 @@ define appendLineToFile($file, $line, $user) {
 
 node default {
   ## Standard Packages
-  package {['iftop','htop','elinks','stress','nmap','ssh','git','openjdk-7-jdk','python','python-pycurl','sshpass']:
+  package {['iftop','htop','elinks','stress','nmap','openssh-server','git','openjdk-7-jdk','python','python-pycurl','sshpass']:
     ensure => present,
   }
 
@@ -47,6 +47,11 @@ node default {
     ## Prereq Packages
     package {['libselinux-python','openssl098e','openssh-clients']:
       ensure => present,
+    }
+    package {'epel':
+      ensure   => present,
+      source   => 'http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm',
+      provider => 'rpm',
     }
 
     ## MapR Installation

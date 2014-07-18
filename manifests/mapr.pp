@@ -28,8 +28,11 @@ define appendLineToFile($file, $line, $user) {
 
 node default {
   ## Standard Packages
-  package {['iftop','htop','elinks','stress','nmap','ssh','git','openjdk-7-jdk','python','python-pycurl','sshpass']:
+  package {['iftop','htop','elinks','stress','nmap','openssh-server','git','openjdk-7-jdk','python','python-pycurl','sshpass']:
     ensure => present,
+  }
+  service{'sshd':
+    ensure => running,
   }
 
   ## Debian/Ubuntu Specific
