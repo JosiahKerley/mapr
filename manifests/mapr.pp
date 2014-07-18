@@ -46,10 +46,12 @@ node default {
     }
 
     ## MapR Installation
+    exec {'/usr/bin/wget http://package.mapr.com/releases/v3.1.1/redhat/mapr-setup -O /usr/bin':
+      creates => '/usr/bin/mapr-setup'
+    }
     file { '/usr/bin/mapr-setup':
-      source => 'http://package.mapr.com/releases/v3.1.1/redhat/mapr-setup',
       mode   => '0775',
-      ensure => present
+      #ensure => present
     }
   }
 

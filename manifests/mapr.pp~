@@ -47,8 +47,8 @@ node default {
 
     ## MapR Installation
     file { '/usr/bin/mapr-setup':
-      source => 'http://package.mapr.com/releases/v3.1.1/redhat/mapr-setup'
-      mode   => '0775'
+      source => 'http://package.mapr.com/releases/v3.1.1/redhat/mapr-setup',
+      mode   => '0775',
       ensure => present
     }
   }
@@ -57,14 +57,14 @@ node default {
   ## Disk Tests
   file {'/usr/bin/mapr-test-read':
     ensure  => present,
-    mode    => '0775'
+    mode    => '0775',
     content => "#!/bin/bash
                 hdparm -Tt $data_dev
                 dd iflag=nonblock, direct if=$data_dev bs=1M count=10240 1>/dev/null"
   }
   file {'/usr/bin/mapr-test-write':
     ensure  => present,
-    mode    => '0775'
+    mode    => '0775',
     content => "#!/bin/bash
                dd oflag=nonblock,direct if=/dev/zero bs=1M count=10240 of=$data_dev 1>/dev/null"
   }
