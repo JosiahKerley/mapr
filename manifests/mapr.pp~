@@ -8,8 +8,12 @@ $data_part       = '/dev/sdb1'
 $data_mount      = 'mapr-data'
 $data_mountpoint = "/media/$data_mount"
 
-
-
+if versioncmp($::puppetversion,'3.6.1') >= 0 {
+  $allow_virtual_packages = hiera('allow_virtual_packages',false)
+  Package {
+    allow_virtual => $allow_virtual_packages,
+  }
+}
 
 define appendLineToFile($file, $line, $user) {
   exec { "echo \"\\n$line\" >> \"$file\"":
@@ -46,10 +50,12 @@ node default {
     }
 
     ## MapR Installation
+    exec {'/usr/bin/wget http://package.mapr.com/releases/v3.1.1/redhat/mapr-setup -O /usr/bin':
+      creates => '/usr/bin/mapr-setup'
+    }
     file { '/usr/bin/mapr-setup':
-      source => 'http://package.mapr.com/releases/v3.1.1/redhat/mapr-setup',
       mode   => '0775',
-      ensure => present
+      #ensure => present
     }
   }
 

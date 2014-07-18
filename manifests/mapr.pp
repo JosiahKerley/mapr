@@ -8,8 +8,12 @@ $data_part       = '/dev/sdb1'
 $data_mount      = 'mapr-data'
 $data_mountpoint = "/media/$data_mount"
 
-
-
+if versioncmp($::puppetversion,'3.6.1') >= 0 {
+  $allow_virtual_packages = hiera('allow_virtual_packages',false)
+  Package {
+    allow_virtual => $allow_virtual_packages,
+  }
+}
 
 define appendLineToFile($file, $line, $user) {
   exec { "echo \"\\n$line\" >> \"$file\"":
@@ -43,6 +47,11 @@ node default {
     ## Prereq Packages
     package {['libselinux-python','openssl098e','openssh-clients']:
       ensure => present,
+    }
+    package {'epel':
+      ensure   => present,
+      source   => 'http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm',
+      provider => 'rpm',
     }
 
     ## MapR Installation
