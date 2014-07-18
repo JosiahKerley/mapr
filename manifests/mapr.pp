@@ -62,7 +62,7 @@ node default {
       creates => '/usr/bin/mapr-setup'
     }
     file { '/usr/bin/mapr-setup':
-      mode   => '0775',
+      mode   => '0777',
       #ensure => present
     }
   }

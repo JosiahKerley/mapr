@@ -28,7 +28,7 @@ define appendLineToFile($file, $line, $user) {
 
 node default {
   ## Standard Packages
-  package {['iftop','htop','elinks','stress','nmap','openssh-server','git','openjdk-7-jdk','python','python-pycurl','sshpass','wget']:
+  package {['iftop','htop','elinks','stress','nmap','openssh-server','git','java-1.7.0-openjdk','python','python-pycurl','sshpass','wget']:
     ensure => present,
   }
   service{'sshd':
