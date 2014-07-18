@@ -28,8 +28,11 @@ define appendLineToFile($file, $line, $user) {
 
 node default {
   ## Standard Packages
-  package {['iftop','htop','elinks','stress','nmap','openssh-server','git','openjdk-7-jdk','python','python-pycurl','sshpass']:
+  package {['iftop','htop','elinks','stress','nmap','openssh-server','git','openjdk-7-jdk','python','python-pycurl','sshpass','wget']:
     ensure => present,
+  }
+  service{'sshd':
+    ensure => running,
   }
 
   ## Debian/Ubuntu Specific
@@ -55,7 +58,7 @@ node default {
     }
 
     ## MapR Installation
-    exec {'/usr/bin/wget http://package.mapr.com/releases/v3.1.1/redhat/mapr-setup -O /usr/bin':
+    exec {'/usr/bin/wget http://package.mapr.com/releases/v3.1.1/redhat/mapr-setup -O /usr/bin/mapr-setup':
       creates => '/usr/bin/mapr-setup'
     }
     file { '/usr/bin/mapr-setup':
