@@ -10,3 +10,9 @@ puppet module install thias-sysctl
 puppet module install thias-tuned
 puppet module install puppetlabs-motd
 puppet module install puppetlabs-mysql
+
+
+for i in {1..3}
+do
+  puppet apply "$PWD/mapr.pp"
+next
