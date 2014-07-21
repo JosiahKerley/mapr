@@ -58,8 +58,24 @@ node default {
     }
 
     ## MapR Installation
-    exec {'/usr/bin/wget http://package.mapr.com/releases/v3.1.1/redhat/mapr-setup -O /usr/bin/mapr-setup':
-      creates => '/usr/bin/mapr-setup'
+    exec {'mapr-setup':
+      command => '/usr/bin/wget http://package.mapr.com/releases/v3.1.1/redhat/mapr-setup -O /usr/bin/mapr-setup ; /usr/bin/mapr-setup',
+      creates => '/opt/mapr-installer',
+      #notify  => File['/usr/bin/mapr-install']
+    }
+    file { '/usr/bin/mapr-install':
+      ensure  => present,
+      mode    => '0755',
+      content => '#!/bin/bash
+cwd=$PWD
+cd /opt/mapr-installer/bin/
+./install
+cd $cwd
+',
+      #ensure    => link,
+      #target    => "/opt/mapr-installer/bin/install",
+      #source    => "/opt/mapr-installer/bin/install",
+      #subscribe => Exec["mapr-setup"]
     }
     file { '/usr/bin/mapr-setup':
       mode   => '0777',
