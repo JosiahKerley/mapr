@@ -64,8 +64,16 @@ node default {
       #notify  => File['/usr/bin/mapr-install']
     }
     file { '/usr/bin/mapr-install':
-      ensure    => link,
-      target    => "/opt/mapr-installer/bin/install",
+      ensure  => present,
+      mode    => '0755',
+      content => '#!/bin/bash
+cwd=$PWD
+cd /opt/mapr-installer/bin/
+./install
+cd $cwd
+',
+      #ensure    => link,
+      #target    => "/opt/mapr-installer/bin/install",
       #source    => "/opt/mapr-installer/bin/install",
       #subscribe => Exec["mapr-setup"]
     }
@@ -89,6 +97,22 @@ node default {
     mode    => '0775',
     content => "#!/bin/bash
                dd oflag=nonblock,direct if=/dev/zero bs=1M count=10240 of=$data_dev 1>/dev/null"
+  }
+
+  file {'/etc/issue':
+    ensure => present,
+    content =>'
+___  ___           ______ 
+|  \/  |           | ___ \
+| .  . | __ _ _ __ | |_/ /
+| |\/| |/ _` | '_ \|    / 
+| |  | | (_| | |_) | |\ \ 
+\_|  |_/\__,_| .__/\_| \_|
+             | |          
+             |_|          
+                          
+                          
+'
   }
 
 

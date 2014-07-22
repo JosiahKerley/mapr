@@ -99,6 +99,22 @@ cd $cwd
                dd oflag=nonblock,direct if=/dev/zero bs=1M count=10240 of=$data_dev 1>/dev/null"
   }
 
+  file {'/etc/issue':
+    ensure => present,
+    content =>'
+___  ___           ______ 
+|  \/  |           | ___ \
+| .  . | __ _ _ __ | |_/ /
+| |\/| |/ _` | '_ \|    / 
+| |  | | (_| | |_) | |\ \ 
+\_|  |_/\__,_| .__/\_| \_|
+             | |          
+             |_|          
+                          
+       Node `s
+'
+  }
+
 
 }
 
